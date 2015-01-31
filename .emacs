@@ -5,19 +5,31 @@
 (scroll-bar-mode -1)
 
 (require 'package)
+
+
+(defvar local-packages '(magit autocomplete jedi key-chord
+			       evil projectile hlinum ample-zen-theme))
+
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
                          ("org" . "http://orgmode.org/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
+
 (package-initialize)
 
 (unless package-archive-contents
   (package-refresh-contents))
 
-(defvar local-packages '(magit autocomplete jedi key-chord
-			       evil projectile hlinum ample-zen-theme))
-;(dolist (p local-packages)
-;  (when (not (package-installed-p p))
-;      (package-install p)))
+;; (dolist (p local-packages)
+;;  (when (not (package-installed-p p))
+;;      (package-install p)))
+
+
+
+
+
+
+
+
 
 (require 'auto-complete-config)
 (ac-config-default)
@@ -89,7 +101,7 @@
   ;; this preserves the correct indentation in case the line above
   ;; point is a nested block
   (split-line)   ;; (move-beginning-of-line 1)  
-    (insert "import pdb; pdb.set_trace();")  
+    (insert "import ipdb; ipdb.set_trace();")  
     (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()"))
 
 (define-key evil-normal-state-map (kbd "<f9>") 'add-py-debug)
@@ -98,6 +110,9 @@
 (global-set-key (kbd "<C-down>") 'enlarge-window)
 (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
 (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
+
+(define-key input-decode-map [?\C-i] [C-i])
+(global-set-key (kbd "<C-i>") 'indent-region)
 
 (setq
  python-shell-interpreter "ipython"
