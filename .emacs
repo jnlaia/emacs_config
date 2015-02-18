@@ -8,7 +8,8 @@
 
 
 (defvar local-packages '(magit autocomplete jedi key-chord
-			       evil projectile hlinum ample-zen-theme))
+			       evil projectile hlinum ample-zen-theme
+			       AUCTeX))
 
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
                          ("org" . "http://orgmode.org/elpa/")
@@ -80,12 +81,15 @@
 		    ;; :foreground "#006400" :background 'unspecified
 		    )
 
-(global-hl-line-mode 1)			
+(global-visual-line-mode 1); Proper line wrapping
+(global-hl-line-mode 1); Highlight current row
+(show-paren-mode 1); Matches parentheses and such in every mode
+(set-fringe-mode '(0 . 0)); Disable fringe because I use visual-line-mode
+(setq visible-bell t); Flashes on error
 ;; (set-face-background hl-line-face "light cyan") 
 
 (load-theme 'ample-zen t)
 (global-linum-mode t)
-(show-paren-mode 1)
 (setq show-paren-delay 0)
 ;; (windmove-default-keybindings)
 ;; (setq org-replace-disputed-keys t)
@@ -127,8 +131,13 @@
    "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
 
+;;; AUCTeX
+;; Customary Customization, p. 1 and 16 in the manual, and http://www.emacswiki.org/emacs/AUCTeX#toc2
+(setq TeX-parse-self t); Enable parse on load.
+(setq TeX-auto-save t); Enable parse on save.
+(setq-default TeX-master nil)
 
-
+(setq TeX-PDF-mode t); PDF mode (rather than DVI-mode)
 
 
 
