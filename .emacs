@@ -9,7 +9,9 @@
 
 (defvar local-packages '(magit autocomplete jedi key-chord
 			       evil projectile hlinum ample-zen-theme
-			       AUCTeX))
+			       AUCTeX neotree
+			       websocket request markdown-mode ein python-mode
+			       ))
 
 (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")
                          ("org" . "http://orgmode.org/elpa/")
@@ -26,11 +28,29 @@
 
 
 
+;; (require 'tree-mode)
+;; (require 'windata)
+;; (require 'dirtree)
+;; (global-set-key [f8] 'dirtree-show)
 
 
 
 
 
+
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+(setq neo-window-width 28)
+ (add-hook 'neotree-mode-hook
+            (lambda ()
+              (define-key evil-normal-state-local-map (kbd "l") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+              (define-key evil-normal-state-local-map (kbd "h") 'neotree-hidden-file-toggle)
+              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-change-root)
+              (define-key evil-normal-state-local-map (kbd "d") 'neotree-delete-node)
+              (define-key evil-normal-state-local-map (kbd "r") 'neotree-rename-node)
+              (define-key evil-normal-state-local-map (kbd "n") 'neotree-create-node)
+              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
 
 (require 'auto-complete-config)
 (ac-config-default)
@@ -41,10 +61,13 @@
 ;; Enable for python-mode
 (add-hook 'python-mode-hook 'jedi:setup)
 
-(require 'projectile)
-(projectile-global-mode)
+;; (require 'projectile)
+;; (projectile-global-mode)
 
 
+(require 'ein)
+(setq ein:use-auto-complete t)
+(add-hook 'ein:connect-mode-hook 'ein:jedi-setup)
 
 (require 'evil)
 (evil-mode 1)
@@ -138,6 +161,9 @@
 (setq-default TeX-master nil)
 
 (setq TeX-PDF-mode t); PDF mode (rather than DVI-mode)
+
+
+
 
 
 
